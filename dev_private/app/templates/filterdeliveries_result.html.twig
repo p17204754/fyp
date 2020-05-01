@@ -1,0 +1,65 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <body>
+    {% if logInValue == true %}
+        <nav>
+            <a href="{{ action6 }}">Home</a>
+            <a href="{{ action4 }}">Booking</a>
+            <a href="{{ action3 }}">Admin</a>
+            <a href="{{ action7 }}">Deliveries</a>
+        </nav>
+    {% endif %}
+    <main>
+
+        <h2>{{ page_heading_2 }}</h2>
+        <p>{{ error_messages }}</p>
+
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>forename</th>
+                <th>surname</th>
+                <th>addressline1</th>
+                <th>addressline2</th>
+                <th>addressline3</th>
+                <th>postcode</th>
+                <th>description</th>
+                <th>delivery date</th>
+                <th>status</th>
+                <th>Edit</th>
+            </tr>
+            {% for items in stored_deliveries %}
+                <tr>
+                    <td>{{ items.booking_id}}</td>
+                    <td>{{ items.forename}}</td>
+                    <td>{{ items.surname }}</td>
+                    <td>{{ items.addressline1 }}</td>
+                    <td>{{ items.addressline2 }}</td>
+                    <td>{{ items.addressline3 }}</td>
+                    <td>{{ items.postcode }}</td>
+                    <td>{{ items.description }}</td>
+                    <td>{{ items.deliverydate }}</td>
+                    <td>{{ items.status }}</td>
+                    <td><form action="{{ changeAction }}" method="{{ methodGet }}"><button type = "submit" name="booking_id" value="{{ items.booking_id }}">Edit</button></form></td>
+                </tr>
+            {% endfor %}
+            {% for items in all_deliveries %}
+                <tr>
+                    <td>{{ items.booking_id}}</td>
+                    <td>{{ items.forename}}</td>
+                    <td>{{ items.surname }}</td>
+                    <td>{{ items.addressline1 }}</td>
+                    <td>{{ items.addressline2 }}</td>
+                    <td>{{ items.addressline3 }}</td>
+                    <td>{{ items.postcode }}</td>
+                    <td>{{ items.description }}</td>
+                    <td>{{ items.deliverydate }}</td>
+                    <td>{{ items.status }}</td>
+                    <td><form action="{{ action }}" method="{{ method }}"><button type = "submit" name="status" value="{{ user.user_id }}">Edit</button></form></td>
+                </tr>
+            {% endfor %}
+        </table>
+
+    </main>
+    </body>
+{% endblock %}

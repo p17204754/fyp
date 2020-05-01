@@ -1,0 +1,94 @@
+
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <body>
+    {% if logInValue == true %}
+        <nav>
+            <a href="{{ action6 }}">Home</a>
+            <a href="{{ action4 }}">Booking</a>
+            <a href="{{ action3 }}">Admin</a>
+            <a href="{{ action7 }}">Deliveries</a>
+        </nav>
+    {% endif %}
+
+    <main>
+        <h2>Homepage</h2>
+        <p>Welcome</p>
+        <p>{{ login_result }}</p>
+
+        <div class="graph-container">
+
+            <div class="left-graph-container">
+                <div id="chartContainer" style="width: 100%; height: 100%;"></div>
+            </div>
+
+            <div class="statistic-container">
+                <h2>Total number of deliveries</h2>
+                <h1>{{ total }}</h1>
+            </div>
+
+            <div class="statistic-container">
+                <h2>Total number of deliveries last month</h2>
+                <h1>{{ monthTotal }}</h1>
+            </div>
+
+            <div class="statistic-container">
+                <h2>Most popular town</h2>
+                <h1>{{ topTown }}</h1>
+            </div>
+
+
+
+
+
+
+        </div>
+
+
+
+
+{#        <div class="stat-header"><h2>Number of orders:</h2></div>#}
+{#        <div>#}
+{#            <p>Total = {{ total }}</p>#}
+{#            <p>Within the last month = {{ monthTotal }} </p>#}
+{#            <p>Within the last 60 days= {{ twoMonthTotal }} </p>#}
+{#        </div>#}
+
+        {% if logInValue == true %}
+            <form action ='{{ action2 }}' method="{{ method2 }}">
+                <input type="submit" value="{{ actionButtonText2 }}"/>
+            </form>
+        {% endif %}
+
+
+    </main>
+    </body>
+    <script>
+        window.onload = function () {
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                exportEnabled: true,
+                theme: "light1",
+                title: {
+                    text: "Number of orders"
+                },
+                data: [{
+                    type: "column",
+                    indexLabelFontColor: "#5A5757",
+                    indexLabelFontSize: 14,
+                    indexLabelPlacement: "outside",
+                    dataPoints: [
+                        {y: {{ monthTotal }}, label: "Last Month" },
+                        {y: {{ twoMonthTotal }}, label: "Last 60 days" },
+                        {y: {{ total }}, label: "Total" }
+                    ]
+                }]
+            });
+            chart.render();
+        }
+    </script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
+{% endblock %}

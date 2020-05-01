@@ -1,0 +1,30 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <body>
+    {% if logInValue == true %}
+        <nav>
+            <a href="{{ action6 }}">Home</a>
+            <a href="{{ action4 }}">Booking</a>
+            <a href="{{ action3 }}">Admin</a>
+            <a href="{{ action7 }}">Deliveries</a>
+        </nav>
+    {% endif %}
+    <main>
+        <div class="form-container">
+        <p>{{ error_messages }}</p>
+
+        <form name="search_form" method="{{ postmethod }}" action="{{ filterAction }}">
+            <h2>Filter</h2>
+            <input id="search_term" name="search_term" type="text" value="" placeholder="Search booking id">
+            <input type="submit" name="search" value="Search for booking ID">
+        </form>
+
+        <form name="view_all" method="{{ method }}" action="{{ allAction }}">
+            <h2>View all</h2>
+            <input type="submit" name="search_all" value="View all">
+        </form>
+        </div>
+
+    </main>
+    </body>
+{% endblock %}

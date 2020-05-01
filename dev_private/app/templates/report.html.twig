@@ -1,0 +1,115 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <body>
+    {% if logInValue == true %}
+        <nav>
+            <a href="{{ action6 }}">Home</a>
+            <a href="{{ action4 }}">Booking</a>
+            <a href="{{ action3 }}">Admin</a>
+            <a href="{{ action7 }}">Deliveries</a>
+        </nav>
+    {% endif %}
+
+    <main>
+        {% for value in data_result %}
+        <table>
+            <tr>
+                <th>booking_id</th>
+                <td>{{ value.booking_id}}</td>
+            </tr>
+            <tr>
+                <th>forename</th>
+                <td>{{ value.forename }}</td>
+                </tr>
+            <tr>
+                <th>surname</th>
+                <td>{{ value.surname }}</td>
+            </tr>
+            <tr>
+                <th>addressline1</th>
+                <td>{{ value.addressline1 }}</td>
+            </tr>
+            <tr>
+                <th>addressline2</th>
+                <td>{{ value.addressline2 }}</td>
+            </tr>
+            <tr>
+                <th>addressline3</th>
+                <td>{{ value.addressline3 }}</td>
+            </tr>
+            <tr>
+                <th>postcode</th>
+                <td>{{ value.postcode }}</td>
+            </tr>
+            <tr>
+                <th>delivery date</th>
+                <td>{{ value.deliverydate }}</td>
+            </tr>
+            <tr>
+                <th>description</th>
+                <td>{{ value.description }}</td>
+            </tr>
+            <tr>
+                <th>status</th>
+                <td>{{ value.status }}</td>
+            </tr>
+        </table>
+
+        <form action="http://maps.google.com/maps" method="get" target="_blank">
+            <input type="hidden" name="saddr" value="le94lg"/>
+            <input type="hidden" name="daddr" value="{{value.postcode}}" />
+            <input type="submit" value="Get directions" />
+        </form>
+
+
+
+        <div id="googleMap" class="map_div"></div>
+
+    <button onclick="print()">Print delivery report</button>
+
+    </main>
+    </body>
+
+        <script>
+            var geocoder;
+            var map;
+            var address="{{ value.addressline3 }}";
+
+            function initmap() {
+                geocoder = new google.maps.Geocoder();
+
+                var home = {lat: 52.537950,lng: -1.294470};
+                map = new google.maps.Map(document.getElementById("googleMap"), {
+                    zoom: 11,
+                    center:home
+                });
+                var marker = new google.maps.Marker({
+                    position: home,
+                    map: map
+                });
+                 codeAddress(geocoder, map);
+            }
+            function codeAddress(geocoder, map) {
+                geocoder.geocode({'address': address}, function(results, status) {
+                    if (status === 'OK') {
+                        map.setCenter(results[0].geometry.location);
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: results[0].geometry.location
+                        });
+                    } else {
+                        alert('Geocode was not successful for the following reason: ' + status);
+                    }
+                });
+            }
+
+
+            function print() {
+                window.print();
+            }
+
+        </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEd31w1eoXGLeJ2avV4Ooo3z2OsXfLP5A&callback=initmap"></script>
+
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <body>
+    {% if logInValue == true %}
+        <nav>
+            <a href="{{ action6 }}">Home</a>
+            <a href="{{ action4 }}">Booking</a>
+            <a href="{{ action3 }}">Admin</a>
+            <a href="{{ action7 }}">Deliveries</a>
+        </nav>
+    {% endif %}
+
+    <main>
+    <div class="form-container">
+        <h2>Booking</h2>
+
+            <form action ='{{ bookingAction }}' method="{{ method }}">
+                    <input id="forename" type="text" name="forename" value="" size="10" maxlength="50" placeholder="forename">
+                    <input id="surname" type="text" name="surname" value="" size="10" maxlength="50" placeholder="surname">
+                    <input id="addressline1" type="text" name="addressline1" value="" size="10" maxlength="50" placeholder="address line 1">
+                    <input id="addressline2" type="text" name="addressline2" value="" size="10" maxlength="50" placeholder="address line 2">
+                    <input id="addressline3" type="text" name="addressline3" value="" size="10" maxlength="50" placeholder="address line 3">
+                    <input id="postcode" type="text" name="postcode" value="" size="10" maxlength="50" placeholder="postcode">
+                    <input id="deliverydate" type="date" name="deliverydate" value="" maxlength="50" placeholder="dd/mm/yyyy">
+                <br>
+                    <select id="description" name="description">
+                        <option value="" disabled selected>Select a product</option>
+                        {% for product in products  %}
+                        <option>{{ product.description}}</option>
+                        {% endfor %}
+                    </select>
+
+                <br>
+                <input id="status" type="text" name="status" size="10" maxlength="50" value="processing" readonly>
+                <input id="email" type="email" name="email" value="" maxlength="50" placeholder="email@example.com">
+                <input type="submit" value="book"/>
+            </form>
+    </div>
+    </main>
+    </body>
+{% endblock %}

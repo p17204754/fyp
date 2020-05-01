@@ -1,0 +1,30 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <body>
+    <main>
+        <h2>{{ page_heading_2 }}</h2>
+        <p>{{ message }}</p>
+        {% if  booking_exists  == true %}
+            <form action="{{ action }}" method="post">
+                <fieldset>
+                    <legend>{{ page_title }}</legend>
+                    <input type="text" name = 'booking_id' value="{{ booking_id }}">
+                    <label for="status">"Status:"</label>
+                    <select id="status" name="edited_status">
+                        <option value="" disabled selected>select a status</option>
+                        <option>processing</option>
+                        <option>completed</option>
+                        <option>cancelled</option>
+                    </select>
+                        {#                    <input id="status" name="edited_status" type="text" value="{{ status }}" size="10" maxlength="50">#}
+                    <br><br>
+                    <input type="submit" value="Save">
+                </fieldset>
+            </form>
+        {% endif %}
+        <div id = "link">
+            <p class="curr_page"><a href="{{ landing_page }}">logout</a></p>
+        </div>
+    </main>
+    </body>
+{% endblock %}
